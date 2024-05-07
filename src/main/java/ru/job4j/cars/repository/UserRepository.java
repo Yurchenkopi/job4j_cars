@@ -26,16 +26,15 @@ public class UserRepository {
      */
     public Optional<User> create(User user) {
         Session session = sf.openSession();
-        Optional<User> rsl;
+        Optional<User> rsl = Optional.empty();
         try {
             session.beginTransaction();
             session.save(user);
-            rsl = Optional.of(user);
             session.getTransaction().commit();
+            rsl = Optional.of(user);
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.info("Объект user не был сохранен в БД по причине возникновения исключения.");
-            rsl = Optional.empty();
         } finally {
             session.close();
         }
@@ -90,15 +89,15 @@ public class UserRepository {
      */
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
-        List<User> rsl;
+        List<User> rsl = Collections.emptyList();
         try {
             session.beginTransaction();
-            rsl = session.createQuery("from User", User.class).list();
+            var query = session.createQuery("from User", User.class);
             session.getTransaction().commit();
+            rsl = query.list();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.info("Возникло исключение при поиске всех записей в БД.");
-            rsl = Collections.emptyList();
         } finally {
             session.close();
         }
@@ -111,18 +110,17 @@ public class UserRepository {
      */
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Optional<User> rsl;
+        Optional<User> rsl = Optional.empty();
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
                     "from User u where u.id = :fId", User.class);
             query.setParameter("fId", userId);
-            rsl = query.uniqueResultOptional();
             session.getTransaction().commit();
+            rsl = query.uniqueResultOptional();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.info("Возникло исключение при поиске записи в БД по ID пользователя.");
-            rsl = Optional.empty();
         } finally {
             session.close();
         }
@@ -136,19 +134,18 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        List<User> rsl;
+        List<User> rsl = Collections.emptyList();
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
                     "FROM User u WHERE u.login LIKE :fKey", User.class);
             String modifyKey = String.format("%s%s%s", "%", key, "%");
             query.setParameter("fKey", modifyKey);
-            rsl = query.list();
             session.getTransaction().commit();
+            rsl = query.list();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.info("Возникло исключение при поиске записи в БД по логину по маске.");
-            rsl = Collections.emptyList();
         } finally {
             session.close();
         }
@@ -162,18 +159,17 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Optional<User> rsl;
+        Optional<User> rsl = Optional.empty();
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
                     "from User u where u.login = :fLogin", User.class);
             query.setParameter("fLogin", login);
-            rsl = query.uniqueResultOptional();
             session.getTransaction().commit();
+            rsl = query.uniqueResultOptional();
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOG.info("Возникло исключение при поиске записи в БД по логину.");
-            rsl = Optional.empty();
         } finally {
             session.close();
         }
