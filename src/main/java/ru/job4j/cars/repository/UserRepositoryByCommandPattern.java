@@ -1,6 +1,8 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.cars.model.User;
 
 import java.util.List;
@@ -9,6 +11,9 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class UserRepositoryByCommandPattern {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserRepositoryByCommandPattern.class.getName());
+
     private final CrudRepository crudRepository;
 
     /**
@@ -16,9 +21,14 @@ public class UserRepositoryByCommandPattern {
      * @param user пользователь.
      * @return пользователь с id.
      */
-    public User create(User user) {
-        crudRepository.run(session -> session.save(user));
-        return user;
+    public Optional<User> create(User user) {
+        try {
+            crudRepository.run(session -> session.save(user));
+            return Optional.of(user);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return Optional.empty();
     }
 
     /**
