@@ -19,8 +19,8 @@ public class HbmUsage {
                 .buildMetadata().buildSessionFactory()) {
             var userRepository = new UserRepositoryByCommandPattern(new CrudRepository(sf));
             var user = new User();
-            user.setLogin("User3");
-            user.setPassword("user3");
+            user.setLogin("User8");
+            user.setPassword("user8");
             userRepository.create(user);
             var postRepository = new PostRepository(new CrudRepository(sf));
             var post = new Post();
@@ -33,7 +33,10 @@ public class HbmUsage {
             post.setParticipates(Set.of(user));
             postRepository.create(post);
             postRepository.findAll()
-                    .forEach(p -> System.out.println(p.getUser()));
+                    .forEach(System.out::println);
+            postRepository.findAll().stream()
+                    .map(Post::getUser)
+                    .forEach(System.out::println);
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }

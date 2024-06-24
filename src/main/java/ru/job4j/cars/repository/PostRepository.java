@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
-public class PostRepository {
+public class  PostRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(PostRepository.class.getName());
 
@@ -34,7 +34,13 @@ public class PostRepository {
     }
 
     public List<Post> findAll() {
-        return crudRepository.query("FROM Post ORDER BY id ASC", Post.class);
+        return crudRepository.query("""
+    SELECT DISTINCT p
+    FROM Post p 
+    JOIN FETCH p.prices 
+    JOIN FETCH p.participates 
+    ORDER BY p.id ASC    
+    """, Post.class);
     }
 
 }
