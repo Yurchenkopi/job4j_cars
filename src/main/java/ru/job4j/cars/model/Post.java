@@ -43,4 +43,7 @@ public class Post {
     )
     private Set<User> participates = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
 }

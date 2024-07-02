@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.utils;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -21,6 +21,11 @@ public class CrudRepository {
                     return null;
                 }
         );
+    }
+
+
+    public boolean runAndReturnBool(Function<Session, Boolean> function) {
+        return tx(function);
     }
 
     public void run(String query, Map<String, Object> args) {
