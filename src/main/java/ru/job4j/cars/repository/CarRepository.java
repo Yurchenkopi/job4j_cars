@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -45,7 +45,7 @@ public class CarRepository {
         );
     }
 
-    public List<Car> findAll() {
+    public Collection<Car> findAll() {
         return crudRepository.query("""
     SELECT DISTINCT c
     FROM Car c

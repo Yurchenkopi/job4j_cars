@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Engine;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,7 +46,7 @@ public class EngineRepository {
         );
     }
 
-    public List<Engine> findAll() {
+    public Collection<Engine> findAll() {
         return crudRepository.query("""
     FROM Engine e
     ORDER BY e.id ASC

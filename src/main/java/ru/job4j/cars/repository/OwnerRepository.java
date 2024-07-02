@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Owner;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,7 +46,7 @@ public class OwnerRepository {
         );
     }
 
-    public List<Owner> findAll() {
+    public Collection<Owner> findAll() {
         return crudRepository.query("""
     FROM Owner o
     ORDER BY o.id ASC

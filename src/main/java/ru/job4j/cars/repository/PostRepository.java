@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class  PostRepository {
         );
     }
 
-    public List<Post> findAll() {
+    public Collection<Post> findAll() {
         return crudRepository.query("""
     SELECT DISTINCT p
     FROM Post p
@@ -50,6 +51,79 @@ public class  PostRepository {
     JOIN FETCH car.owners
     ORDER BY p.id ASC
     """, Post.class);
+    }
+
+    /**
+     *Show current day posts
+     */
+    public Collection<Post> findByCurrentDay() {
+        return crudRepository.query(
+             """
+            SELECT DISTINCT p
+            FROM Post p
+            JOIN FETCH p.prices pr
+            JOIN FETCH p.participates
+            JOIN FETCH p.car car
+            JOIN FETCH car.engine
+            JOIN FETCH car.owners
+            WHERE pr.created BETWEEN :fStartDateTime AND :fEndDateTime
+            ORDER BY p.id ASC
+            """,
+                Post.class,
+                Map.of(
+                        "fStartDateTime", LocalDateTime.now().minusDays(1),
+                        "fEndDateTime", LocalDateTime.now()
+                )
+        );
+    }
+
+    /**
+     *Show post with required engine_id
+     */
+    public Optional<Post> findByEngineId(int engineId) {
+        return crudRepository.optional(
+                """
+               FROM Post p
+               JOIN FETCH p.prices pr
+               JOIN FETCH p.participates
+               JOIN FETCH p.car car
+               JOIN FETCH car.engine eng
+               JOIN FETCH car.owners
+               WHERE eng.id = :fEngineId
+               """,
+                Post.class,
+                Map.of(
+                        "fEngineId", engineId
+                )
+        );
+    }
+
+    /**
+     *Show posts with required count of owners
+     */
+    public Collection<Post> findByCountOfOwners(Long count) {
+        return crudRepository.query(
+                """
+               SELECT DISTINCT p
+               FROM Post p
+               JOIN FETCH p.prices pr
+               JOIN FETCH p.participates
+               JOIN FETCH p.car car
+               JOIN FETCH car.engine
+               JOIN FETCH car.owners own
+               WHERE car.id IN (
+                    SELECT car.id
+                    FROM Car car
+                    JOIN car.owners own
+                    GROUP BY car.id
+                    HAVING count(own.id) >= :fCount
+                    )
+               """,
+                Post.class,
+                Map.of(
+                        "fCount", count
+                )
+        );
     }
 
 }
