@@ -1,0 +1,22 @@
+INSERT INTO models (name, manufacturer_id, category_id, body_type_id)
+VALUES
+    ('Accord', 1, 3, 1),
+    ('Civic', 1, 3, 1),
+    ('Rav4', 2, 3, 8),
+    ('Corolla', 2, 3, 1),
+    ('Logan', 3, 3, 1),
+    ('Kaptur', 3, 3, 8),
+    ('Mustang', 4, 3, 6),
+    ('Focus', 4, 3, 1),
+    ('Q7', 5, 3, 8),
+    ('A8 Allroad', 5, 3, 3),
+    ('X5', 6, 3, 8),
+    ('e5', 6, 3, 1),
+    ('S220', 7, 3, 1),
+    ('E212', 7, 3, 1),
+    ('Tuareg', 8, 3, 8),
+    ('Polo', 8, 3, 1),
+    ('Vesta', 9, 3, 5),
+    ('21083', 9, 3, 3),
+    ('Almera', 10, 3, 1),
+    ('X-trail', 10, 3, 8);

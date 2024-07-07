@@ -1,0 +1,1 @@
+ALTER TABLE history DROP COLUMN car_id;

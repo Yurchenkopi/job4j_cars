@@ -47,8 +47,16 @@ public class  PostRepository {
     JOIN FETCH p.prices
     JOIN FETCH p.participates
     JOIN FETCH p.car car
+    JOIN FETCH p.file
     JOIN FETCH car.engine
+    JOIN FETCH car.color
+    JOIN FETCH car.model m
     JOIN FETCH car.owners
+    JOIN FETCH car.histories
+    JOIN FETCH car.regNumbers
+    JOIN FETCH m.manufacturer
+    JOIN FETCH m.bodyType
+    JOIN FETCH m.category
     ORDER BY p.id ASC
     """, Post.class);
     }
@@ -64,8 +72,16 @@ public class  PostRepository {
             JOIN FETCH p.prices pr
             JOIN FETCH p.participates
             JOIN FETCH p.car car
+            JOIN FETCH p.file
             JOIN FETCH car.engine
+            JOIN FETCH car.color
+            JOIN FETCH car.model m
             JOIN FETCH car.owners
+            JOIN FETCH car.histories
+            JOIN FETCH car.regNumbers
+            JOIN FETCH m.manufacturer
+            JOIN FETCH m.bodyType
+            JOIN FETCH m.category
             WHERE pr.created BETWEEN :fStartDateTime AND :fEndDateTime
             ORDER BY p.id ASC
             """,
@@ -87,8 +103,16 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
+               JOIN FETCH p.file
                JOIN FETCH car.engine eng
+               JOIN FETCH car.color
+               JOIN FETCH car.model m
                JOIN FETCH car.owners
+               JOIN FETCH car.histories
+               JOIN FETCH car.regNumbers
+               JOIN FETCH m.manufacturer
+               JOIN FETCH m.bodyType
+               JOIN FETCH m.category
                WHERE eng.id = :fEngineId
                """,
                 Post.class,
@@ -109,8 +133,16 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
+               JOIN FETCH p.file
                JOIN FETCH car.engine
                JOIN FETCH car.owners own
+               JOIN FETCH car.color
+               JOIN FETCH car.model m
+               JOIN FETCH car.histories
+               JOIN FETCH car.regNumbers
+               JOIN FETCH m.manufacturer
+               JOIN FETCH m.bodyType
+               JOIN FETCH m.category
                WHERE car.id IN (
                     SELECT car.id
                     FROM Car car

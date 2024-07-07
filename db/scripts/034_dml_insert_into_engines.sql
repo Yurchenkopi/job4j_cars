@@ -1,0 +1,22 @@
+INSERT INTO engines (serial_num)
+VALUES
+    ('ENGINE001'),
+    ('ENGINE002'),
+    ('ENGINE003'),
+    ('ENGINE004'),
+    ('ENGINE005'),
+    ('ENGINE006'),
+    ('ENGINE007'),
+    ('ENGINE008'),
+    ('ENGINE009'),
+    ('ENGINE010'),
+    ('ENGINE011'),
+    ('ENGINE012'),
+    ('ENGINE013'),
+    ('ENGINE014'),
+    ('ENGINE015'),
+    ('ENGINE016'),
+    ('ENGINE017'),
+    ('ENGINE018'),
+    ('ENGINE019'),
+    ('ENGINE020');

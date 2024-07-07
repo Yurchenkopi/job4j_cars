@@ -19,6 +19,13 @@
         <mapping class="ru.job4j.cars.model.Car" />
         <mapping class="ru.job4j.cars.model.Engine" />
         <mapping class="ru.job4j.cars.model.Owner" />
-
+        <mapping class="ru.job4j.cars.model.BodyType" />
+        <mapping class="ru.job4j.cars.model.Category" />
+        <mapping class="ru.job4j.cars.model.Color" />
+        <mapping class="ru.job4j.cars.model.File" />
+        <mapping class="ru.job4j.cars.model.History" />
+        <mapping class="ru.job4j.cars.model.Manufacturer" />
+        <mapping class="ru.job4j.cars.model.Model" />
+        <mapping class="ru.job4j.cars.model.RegNumber" />
     </session-factory>
 </hibernate-configuration>

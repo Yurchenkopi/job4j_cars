@@ -1,0 +1,1 @@
+ALTER TABLE engines ADD COLUMN serial_num VARCHAR(25) unique;

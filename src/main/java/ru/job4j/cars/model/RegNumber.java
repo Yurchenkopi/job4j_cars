@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "owners")
+@Table(name = "reg_nums")
 @Data
 @NoArgsConstructor
-public class Owner {
+public class RegNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
-    private String ownerName;
-
+    private String number;
 }

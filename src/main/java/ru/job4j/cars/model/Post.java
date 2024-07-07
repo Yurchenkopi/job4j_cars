@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,9 @@ public class Post {
 
     private String description;
 
-    private LocalDateTime creates = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now(ZoneId.of("UTC"));
+
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
@@ -46,4 +49,8 @@ public class Post {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private Car car;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
+    private File file;
 }

@@ -16,5 +16,34 @@
     <include file="scripts/010_ddl_create_table_history.sql" relativeToChangelogFile="true"/>
     <include file="scripts/011_ddl_create_table_cars_owners.sql" relativeToChangelogFile="true"/>
     <include file="scripts/012_ddl_add_column_car_id_into_auto_post.sql" relativeToChangelogFile="true"/>
-
+    <include file="scripts/013_ddl_update_data_type_of_colums_at_history_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_drop_column_car_id_into_history_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/015_ddl_create_table_reg_nums.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/016_ddl_create_table_body_types.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/017_dml_insert_into_body_types.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/018_ddl_create_table_manufacturers.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/019_dml_insert_into_manufacturers.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/020_ddl_create_table_categories.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/021_dml_insert_into_categories.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/022_ddl_create_table_models.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/023_dml_insert_into_models.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/024_ddl_create_table_files.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/025_dml_insert_into_files.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/026_ddl_create_table_colors.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/027_dml_insert_into_colors.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/028_ddl_add_columns_into_cars_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/029_ddl_add_columns_into_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/030_ddl_add_columns_into_cars_owners_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/031_ddl_add_column_name_into_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/032_dml_insert_into_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/033_ddl_add_column_serial_num_into_engines.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/034_dml_insert_into_engines.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/035_dml_insert_into_cars.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/036_dml_insert_into_history.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/037_dml_insert_into_reg_nums_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/038_dml_update_data_type_at_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/039_dml_insert_into_auto_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/040_dml_insert_into_price_history.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/041_dml_insert_into_cars_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/042_dml_insert_into_participates.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

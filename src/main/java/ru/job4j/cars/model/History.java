@@ -4,17 +4,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "owners")
-@Data
+@Table(name = "history")
 @NoArgsConstructor
-public class Owner {
+@Data
+public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
-    private String ownerName;
+    @Column(name = "start_at")
+    private LocalDateTime startAt;
 
+    @Column(name = "end_at")
+    private LocalDateTime endAt;
 }

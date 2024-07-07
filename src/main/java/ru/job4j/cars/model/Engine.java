@@ -13,4 +13,7 @@ public class Engine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "serial_num")
+    private String serialNumber;
 }

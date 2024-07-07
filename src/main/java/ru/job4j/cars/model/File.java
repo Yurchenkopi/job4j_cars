@@ -6,15 +6,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "owners")
+@Table(name = "files")
 @Data
 @NoArgsConstructor
-public class Owner {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
-    private String ownerName;
+    private String name;
 
+    private String path;
 }
