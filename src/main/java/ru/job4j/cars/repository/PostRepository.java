@@ -125,6 +125,36 @@ public class  PostRepository {
     /**
      *Show posts with required count of owners
      */
+    public Collection<Post> findByModelName(String modelName) {
+        return crudRepository.query(
+                """
+               SELECT DISTINCT p
+               FROM Post p
+               JOIN FETCH p.prices pr
+               JOIN FETCH p.participates
+               JOIN FETCH p.car car
+               JOIN FETCH p.file
+               JOIN FETCH car.engine
+               JOIN FETCH car.owners own
+               JOIN FETCH car.color
+               JOIN FETCH car.model m
+               JOIN FETCH car.histories
+               JOIN FETCH car.regNumbers
+               JOIN FETCH m.manufacturer
+               JOIN FETCH m.bodyType
+               JOIN FETCH m.category
+               WHERE lower(m.modelName) LIKE lower(:fName)
+               """,
+                Post.class,
+                Map.of(
+                        "fName", String.format("%s%s%s", "%", modelName, "%")
+                )
+        );
+    }
+
+    /**
+     *Show posts with required count of owners
+     */
     public Collection<Post> findByCountOfOwners(Long count) {
         return crudRepository.query(
                 """
