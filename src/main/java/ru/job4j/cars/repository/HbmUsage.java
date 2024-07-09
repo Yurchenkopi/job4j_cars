@@ -23,8 +23,11 @@ public class HbmUsage {
             System.out.println("--SELECT POSTS BY COUNT OF OWNERS--");
             postRepository.findByCountOfOwners(3L)
                      .forEach(System.out::println);
+            System.out.println("--SELECT POSTS WITH PHOTO--");
+            postRepository.findWithPhoto()
+                    .forEach(System.out::println);
             System.out.println("--SELECT POSTS BY MODEL NAME--");
-            postRepository.findByModelName("Rav4")
+            postRepository.findByModelName("RaV")
                     .forEach(System.out::println);
             System.out.println("-".repeat(100));
             postRepository.findAll()

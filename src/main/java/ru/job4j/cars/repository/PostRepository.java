@@ -8,6 +8,7 @@ import ru.job4j.cars.repository.utils.CrudRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class  PostRepository {
     JOIN FETCH car.model m
     JOIN FETCH car.owners
     JOIN FETCH car.histories
-    JOIN FETCH car.regNumbers
+    LEFT JOIN FETCH car.regNumbers
     JOIN FETCH m.manufacturer
     JOIN FETCH m.bodyType
     JOIN FETCH m.category
@@ -78,7 +79,7 @@ public class  PostRepository {
             JOIN FETCH car.model m
             JOIN FETCH car.owners
             JOIN FETCH car.histories
-            JOIN FETCH car.regNumbers
+            LEFT JOIN FETCH car.regNumbers
             JOIN FETCH m.manufacturer
             JOIN FETCH m.bodyType
             JOIN FETCH m.category
@@ -109,7 +110,7 @@ public class  PostRepository {
                JOIN FETCH car.model m
                JOIN FETCH car.owners
                JOIN FETCH car.histories
-               JOIN FETCH car.regNumbers
+               LEFT JOIN FETCH car.regNumbers
                JOIN FETCH m.manufacturer
                JOIN FETCH m.bodyType
                JOIN FETCH m.category
@@ -123,7 +124,7 @@ public class  PostRepository {
     }
 
     /**
-     *Show posts with required count of owners
+     *Show posts with required modelName
      */
     public Collection<Post> findByModelName(String modelName) {
         return crudRepository.query(
@@ -139,7 +140,7 @@ public class  PostRepository {
                JOIN FETCH car.color
                JOIN FETCH car.model m
                JOIN FETCH car.histories
-               JOIN FETCH car.regNumbers
+               LEFT JOIN FETCH car.regNumbers
                JOIN FETCH m.manufacturer
                JOIN FETCH m.bodyType
                JOIN FETCH m.category
@@ -149,6 +150,34 @@ public class  PostRepository {
                 Map.of(
                         "fName", String.format("%s%s%s", "%", modelName, "%")
                 )
+        );
+    }
+
+    /**
+     *Show posts with photo
+     */
+    public Collection<Post> findWithPhoto() {
+        return crudRepository.query(
+                """
+               SELECT DISTINCT p
+               FROM Post p
+               JOIN FETCH p.prices pr
+               JOIN FETCH p.participates
+               JOIN FETCH p.car car
+               LEFT JOIN FETCH p.file photo
+               JOIN FETCH car.engine
+               JOIN FETCH car.owners own
+               JOIN FETCH car.color
+               JOIN FETCH car.model m
+               JOIN FETCH car.histories
+               LEFT JOIN FETCH car.regNumbers
+               JOIN FETCH m.manufacturer
+               JOIN FETCH m.bodyType
+               JOIN FETCH m.category
+               WHERE photo.id IS NOT NULL
+               """,
+                Post.class,
+                Collections.emptyMap()
         );
     }
 
@@ -169,7 +198,7 @@ public class  PostRepository {
                JOIN FETCH car.color
                JOIN FETCH car.model m
                JOIN FETCH car.histories
-               JOIN FETCH car.regNumbers
+               LEFT JOIN FETCH car.regNumbers
                JOIN FETCH m.manufacturer
                JOIN FETCH m.bodyType
                JOIN FETCH m.category

@@ -46,4 +46,5 @@
     <include file="scripts/040_dml_insert_into_price_history.sql" relativeToChangelogFile="true"/>
     <include file="scripts/041_dml_insert_into_cars_owners.sql" relativeToChangelogFile="true"/>
     <include file="scripts/042_dml_insert_into_participates.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/043_dml_update_auto_post_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
