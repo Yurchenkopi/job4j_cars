@@ -1,10 +1,12 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.*;
+import ru.job4j.cars.repository.EngineRepository;
+import ru.job4j.cars.repository.PostRepository;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
 public class HbmUsage {
@@ -30,6 +32,8 @@ public class HbmUsage {
             postRepository.findByModelName("RaV")
                     .forEach(System.out::println);
             System.out.println("-".repeat(100));
+            postRepository.findAllPostDto()
+                    .forEach(System.out::println);
             postRepository.findAll()
                    .forEach(System.out::println);
             postRepository.findAll().stream()

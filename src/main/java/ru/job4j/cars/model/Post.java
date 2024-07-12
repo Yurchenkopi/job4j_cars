@@ -50,7 +50,7 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id")
-    private File file;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "auto_post_id")
+    private Set<File> files = new HashSet<>();
 }

@@ -3,6 +3,7 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.job4j.cars.dto.PostDto;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
@@ -48,7 +49,7 @@ public class  PostRepository {
     JOIN FETCH p.prices
     JOIN FETCH p.participates
     JOIN FETCH p.car car
-    JOIN FETCH p.file
+    JOIN FETCH p.files
     JOIN FETCH car.engine
     JOIN FETCH car.color
     JOIN FETCH car.model m
@@ -62,6 +63,14 @@ public class  PostRepository {
     """, Post.class);
     }
 
+    public Collection<PostDto> findAllPostDto() {
+        return crudRepository.query("""
+    SELECT new ru.job4j.cars.dto.PostDto(p.id, p.description)
+    FROM Post p
+    ORDER BY p.id ASC
+    """, PostDto.class);
+    }
+
     /**
      *Show current day posts
      */
@@ -73,7 +82,7 @@ public class  PostRepository {
             JOIN FETCH p.prices pr
             JOIN FETCH p.participates
             JOIN FETCH p.car car
-            JOIN FETCH p.file
+            JOIN FETCH p.files
             JOIN FETCH car.engine
             JOIN FETCH car.color
             JOIN FETCH car.model m
@@ -104,7 +113,7 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
-               JOIN FETCH p.file
+               JOIN FETCH p.files
                JOIN FETCH car.engine eng
                JOIN FETCH car.color
                JOIN FETCH car.model m
@@ -134,7 +143,7 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
-               JOIN FETCH p.file
+               JOIN FETCH p.files
                JOIN FETCH car.engine
                JOIN FETCH car.owners own
                JOIN FETCH car.color
@@ -164,7 +173,7 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
-               LEFT JOIN FETCH p.file photo
+               LEFT JOIN FETCH p.files photos
                JOIN FETCH car.engine
                JOIN FETCH car.owners own
                JOIN FETCH car.color
@@ -174,7 +183,7 @@ public class  PostRepository {
                JOIN FETCH m.manufacturer
                JOIN FETCH m.bodyType
                JOIN FETCH m.category
-               WHERE photo.id IS NOT NULL
+               WHERE photos.id IS NOT NULL
                """,
                 Post.class,
                 Collections.emptyMap()
@@ -192,7 +201,7 @@ public class  PostRepository {
                JOIN FETCH p.prices pr
                JOIN FETCH p.participates
                JOIN FETCH p.car car
-               JOIN FETCH p.file
+               JOIN FETCH p.files
                JOIN FETCH car.engine
                JOIN FETCH car.owners own
                JOIN FETCH car.color

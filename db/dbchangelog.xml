@@ -47,4 +47,9 @@
     <include file="scripts/041_dml_insert_into_cars_owners.sql" relativeToChangelogFile="true"/>
     <include file="scripts/042_dml_insert_into_participates.sql" relativeToChangelogFile="true"/>
     <include file="scripts/043_dml_update_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/044_ddl_drop_column_file_id_from_auto_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/045_ddl_add_column_auto_post_id_into_files.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/046_ddl_update_constraint_of_column_path_in_files_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/047_dml_update_files_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/048_dml_insert_into_files.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
