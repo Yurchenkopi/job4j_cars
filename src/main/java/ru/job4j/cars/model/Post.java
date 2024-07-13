@@ -30,7 +30,7 @@ public class Post {
 
     private boolean status;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "auto_user_id")
     private User user;
 

@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.cars.dto.PostDto;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.utils.CrudRepository;
 
@@ -43,32 +42,15 @@ public class  PostRepository {
     }
 
     public Collection<Post> findAll() {
-        return crudRepository.query("""
+        return crudRepository.query(
+                """
     SELECT DISTINCT p
     FROM Post p
     JOIN FETCH p.prices
     JOIN FETCH p.participates
-    JOIN FETCH p.car car
-    JOIN FETCH p.files
-    JOIN FETCH car.engine
-    JOIN FETCH car.color
-    JOIN FETCH car.model m
-    JOIN FETCH car.owners
-    JOIN FETCH car.histories
-    LEFT JOIN FETCH car.regNumbers
-    JOIN FETCH m.manufacturer
-    JOIN FETCH m.bodyType
-    JOIN FETCH m.category
+    LEFT JOIN FETCH p.files
     ORDER BY p.id ASC
     """, Post.class);
-    }
-
-    public Collection<PostDto> findAllPostDto() {
-        return crudRepository.query("""
-    SELECT new ru.job4j.cars.dto.PostDto(p.id, p.description)
-    FROM Post p
-    ORDER BY p.id ASC
-    """, PostDto.class);
     }
 
     /**
@@ -76,58 +58,18 @@ public class  PostRepository {
      */
     public Collection<Post> findByCurrentDay() {
         return crudRepository.query(
-             """
+            """
             SELECT DISTINCT p
             FROM Post p
-            JOIN FETCH p.prices pr
+            JOIN FETCH p.prices
             JOIN FETCH p.participates
-            JOIN FETCH p.car car
-            JOIN FETCH p.files
-            JOIN FETCH car.engine
-            JOIN FETCH car.color
-            JOIN FETCH car.model m
-            JOIN FETCH car.owners
-            JOIN FETCH car.histories
-            LEFT JOIN FETCH car.regNumbers
-            JOIN FETCH m.manufacturer
-            JOIN FETCH m.bodyType
-            JOIN FETCH m.category
-            WHERE pr.created BETWEEN :fStartDateTime AND :fEndDateTime
+            LEFT JOIN FETCH p.files
+            WHERE p.created BETWEEN :fStartDateTime AND current_timestamp
             ORDER BY p.id ASC
             """,
                 Post.class,
                 Map.of(
-                        "fStartDateTime", LocalDateTime.now().minusDays(1),
-                        "fEndDateTime", LocalDateTime.now()
-                )
-        );
-    }
-
-    /**
-     *Show post with required engine_id
-     */
-    public Optional<Post> findByEngineId(int engineId) {
-        return crudRepository.optional(
-                """
-               FROM Post p
-               JOIN FETCH p.prices pr
-               JOIN FETCH p.participates
-               JOIN FETCH p.car car
-               JOIN FETCH p.files
-               JOIN FETCH car.engine eng
-               JOIN FETCH car.color
-               JOIN FETCH car.model m
-               JOIN FETCH car.owners
-               JOIN FETCH car.histories
-               LEFT JOIN FETCH car.regNumbers
-               JOIN FETCH m.manufacturer
-               JOIN FETCH m.bodyType
-               JOIN FETCH m.category
-               WHERE eng.id = :fEngineId
-               """,
-                Post.class,
-                Map.of(
-                        "fEngineId", engineId
+                        "fStartDateTime", LocalDateTime.now().minusDays(1)
                 )
         );
     }
@@ -140,20 +82,13 @@ public class  PostRepository {
                 """
                SELECT DISTINCT p
                FROM Post p
-               JOIN FETCH p.prices pr
+               JOIN FETCH p.prices
                JOIN FETCH p.participates
                JOIN FETCH p.car car
-               JOIN FETCH p.files
-               JOIN FETCH car.engine
-               JOIN FETCH car.owners own
-               JOIN FETCH car.color
                JOIN FETCH car.model m
-               JOIN FETCH car.histories
-               LEFT JOIN FETCH car.regNumbers
-               JOIN FETCH m.manufacturer
-               JOIN FETCH m.bodyType
-               JOIN FETCH m.category
+               JOIN FETCH p.files
                WHERE lower(m.modelName) LIKE lower(:fName)
+               ORDER BY p.id ASC
                """,
                 Post.class,
                 Map.of(
@@ -167,23 +102,14 @@ public class  PostRepository {
      */
     public Collection<Post> findWithPhoto() {
         return crudRepository.query(
-                """
+               """
                SELECT DISTINCT p
                FROM Post p
-               JOIN FETCH p.prices pr
+               JOIN FETCH p.prices
                JOIN FETCH p.participates
-               JOIN FETCH p.car car
                LEFT JOIN FETCH p.files photos
-               JOIN FETCH car.engine
-               JOIN FETCH car.owners own
-               JOIN FETCH car.color
-               JOIN FETCH car.model m
-               JOIN FETCH car.histories
-               LEFT JOIN FETCH car.regNumbers
-               JOIN FETCH m.manufacturer
-               JOIN FETCH m.bodyType
-               JOIN FETCH m.category
-               WHERE photos.id IS NOT NULL
+               WHERE SIZE (photos) <> 0
+               ORDER BY p.id ASC
                """,
                 Post.class,
                 Collections.emptyMap()
@@ -198,19 +124,11 @@ public class  PostRepository {
                 """
                SELECT DISTINCT p
                FROM Post p
-               JOIN FETCH p.prices pr
+               JOIN FETCH p.prices
                JOIN FETCH p.participates
                JOIN FETCH p.car car
                JOIN FETCH p.files
-               JOIN FETCH car.engine
                JOIN FETCH car.owners own
-               JOIN FETCH car.color
-               JOIN FETCH car.model m
-               JOIN FETCH car.histories
-               LEFT JOIN FETCH car.regNumbers
-               JOIN FETCH m.manufacturer
-               JOIN FETCH m.bodyType
-               JOIN FETCH m.category
                WHERE car.id IN (
                     SELECT car.id
                     FROM Car car

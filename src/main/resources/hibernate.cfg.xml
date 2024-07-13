@@ -11,6 +11,7 @@
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <mapping class="ru.job4j.cars.model.User" />
@@ -27,6 +28,5 @@
         <mapping class="ru.job4j.cars.model.Manufacturer" />
         <mapping class="ru.job4j.cars.model.Model" />
         <mapping class="ru.job4j.cars.model.RegNumber" />
-        <mapping class="ru.job4j.cars.dto.PostDto" />
     </session-factory>
 </hibernate-configuration>

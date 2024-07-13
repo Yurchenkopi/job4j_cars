@@ -45,6 +45,26 @@ public class CarRepository {
         );
     }
 
+    /**
+     *Show post with required engine_id
+     */
+    public Optional<Car> findByEngineId(int engineId) {
+        return crudRepository.optional(
+                """
+                FROM Car car
+                JOIN FETCH car.engine eng
+                JOIN FETCH car.model m
+                JOIN FETCH car.color
+                JOIN FETCH m.manufacturer
+                WHERE eng.id = :fEngineId
+                """,
+                Car.class,
+                Map.of(
+                        "fEngineId", engineId
+                )
+        );
+    }
+
     public Collection<Car> findAll() {
         return crudRepository.query("""
     SELECT DISTINCT c
